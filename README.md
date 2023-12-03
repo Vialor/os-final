@@ -1,0 +1,1 @@
+./run <filename> [-r|-w] <block_size> <block_count>
