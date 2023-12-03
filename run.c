@@ -3,11 +3,11 @@
 #include <unistd.h>
 #include <time.h>
 #include <fcntl.h>
-
+#include "rdwr.h"
 
 char file_name[256];
 int block_size, block_count;
-int flag, fd;
+int flag;
 
 int stringtoint(char *s){
   int len = strlen(s);
@@ -55,35 +55,13 @@ int main(int argc, char *argv[]){
   double start_time = time(NULL)/3600;
 
   if(flag == 0){
-    fd = open(file_name, O_RDONLY);
-    if(fd<=0){
-      char err[] = "Error: File Open Failed\n";
-      write(2, err, sizeof(err));
-      return 0;
-    }
-    char buf[block_size];
-    for(int i=0; i<block_count; i++)
-      read(fd, buf, block_size);
-    close(fd);
-      
+    block_read(file_name, block_size, block_count);
   }else{
-    fd = open(file_name, O_RDWR|O_CREAT|O_TRUNC);
-    if(fd<=0){
-      char err[] = "Error: File Open Failed\n";
-      write(2, err, sizeof(err));
-      return 0;
-    }
-    char buf[block_size];
-    for(int i=0;i<block_size; i++)
-      buf[i]=48;
-    buf[block_size-1]='\n';
-    for(int i=0; i<block_count; i++)
-      write(fd, buf, block_size);
-    close(fd);
+    block_write(file_name, block_size, block_count);
   }
 
   double finish_time = time(NULL)/3600;
 
-  write(2, "Runtime: %lf\n", finish_time-start_time);
+  printf("Runtime: %lf\n", finish_time-start_time);
   return 0;
 }
