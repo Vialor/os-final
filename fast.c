@@ -15,7 +15,7 @@ int block_size = 4096, block_count;
 char File_name[256];
 double start_time, finish_time;
 unsigned int res[num_threads];
-double filesize = 0;
+long long filesize = 0;
 
 double now() {
   struct timeval tv;
@@ -25,11 +25,13 @@ double now() {
 
 unsigned int XOR(char *A, int size){
   unsigned int res = 0;
-  for(int i=0; i<size; i+=4){
+  for(int i=0; i<size; i++){
+    /*
     unsigned int val = 0;
     for(int j=i; j<i+4; j++)
       val = val*256 + A[j];
-    res ^= val;
+    */
+    res ^= (unsigned int)A[i];
   }
   return res;
 }
@@ -44,9 +46,8 @@ void * apply_read(void *arg){
 
   int size;
   
-  if(lseek(fd, num*block_size, SEEK_SET) == -1){
+  if(lseek(fd, num*block_size, SEEK_SET) == -1)
     return;
-  }
   int step = (num_threads-1)*block_size;
 
   char buf[block_size];
@@ -66,6 +67,8 @@ void * apply_read(void *arg){
     //printf("num: %d, res: %u\n", num, res[num]);
 
     filesize += size;
+
+    //printf("current filesize: %lld\n", filesize);
     if(size < block_size)
       return;
   }
@@ -98,7 +101,7 @@ int main(int argc, char *argv[]){
 
   finish_time = now();
 
-  printf("Runtime per MiB: %lf\n", filesize / (double) MiB / (finish_time-start_time));
+  printf("Runtime per MiB: %lf\n", (double)filesize / (double) MiB / (finish_time-start_time));
 
   unsigned int ans = 0;
   for(int i=0; i<num_threads; i++)
