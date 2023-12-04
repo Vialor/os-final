@@ -36,9 +36,14 @@ unsigned int XOR(char *A, int size){
 
 void * apply_read(void *arg){
   int num = (int) arg;
-  int fd;
+  int fd = open(File_name, O_RDONLY);
+  if(fd<0){
+    printf("File Open Failed!\n");
+    return;
+  }
+
   int size;
-  while( (fd = open(File_name, O_RDONLY)) <3);
+  
   if(lseek(fd, num*block_size, SEEK_SET) == -1){
     return;
   }
