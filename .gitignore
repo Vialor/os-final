@@ -4,3 +4,6 @@ test
 *.o
 run
 run2
+fast
+caching
+system_call
