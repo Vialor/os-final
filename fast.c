@@ -23,16 +23,16 @@ double now() {
   return tv.tv_sec + tv.tv_usec / 1000000.0;
 }
 
-unsigned int XOR(char *A, int size){
+unsigned int XOR(unsigned int  *A, int size){
   unsigned int res = 0;
   for(int i=0; i<size; i++){
-    
+    /*
     unsigned int val = 0;
     for(int j=i; j<i+4; j++)
       val = val*256 + A[j];
     res ^= val;
-    
-    //res ^= (unsigned int)A[i];
+    */
+    res ^= (unsigned int)A[i];
   }
   return res;
 }
@@ -55,7 +55,7 @@ void * apply_read(void *arg){
 
   char buf[block_size];
   size = read(fd, buf, block_size);
-  res[num] = XOR(buf, size);
+  res[num] = XOR((unsigned int *)buf, size/4);
   filesize += size;
   if(size < block_size){
     close(fd);
@@ -68,7 +68,7 @@ void * apply_read(void *arg){
       return;
     }
     size = read(fd, buf, block_size);
-    res[num] ^= XOR(buf, size);
+    res[num] ^= XOR((unsigned int *)buf, size/4);
     
     //printf("num: %d, res: %u\n", num, res[num]);
 
