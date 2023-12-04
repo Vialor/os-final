@@ -46,19 +46,24 @@ void * apply_read(void *arg){
 
   int size;
   
-  if(lseek(fd, num*block_size, SEEK_SET) == -1)
+  if(lseek(fd, num*block_size, SEEK_SET) == -1){
+    close(fd);
     return;
+  }
   int step = (num_threads-1)*block_size;
 
   char buf[block_size];
   size = read(fd, buf, block_size);
   res[num] = XOR(buf, size);
   filesize += size;
-  if(size < block_size)
+  if(size < block_size){
+    close(fd);
     return;
+  }
 
   while(1){
     if(lseek(fd, step, SEEK_CUR) == -1){
+      close(fd);
       return;
     }
     size = read(fd, buf, block_size);
@@ -69,8 +74,10 @@ void * apply_read(void *arg){
     filesize += size;
 
     //printf("current filesize: %lld\n", filesize);
-    if(size < block_size)
+    if(size < block_size){
+      close(fd);
       return;
+    }
   }
 }
 
