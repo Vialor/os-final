@@ -26,12 +26,13 @@ double now() {
 unsigned int XOR(char *A, int size){
   unsigned int res = 0;
   for(int i=0; i<size; i++){
-    /*
+    
     unsigned int val = 0;
     for(int j=i; j<i+4; j++)
       val = val*256 + A[j];
-    */
-    res ^= (unsigned int)A[i];
+    res ^= val;
+    
+    //res ^= (unsigned int)A[i];
   }
   return res;
 }
@@ -113,7 +114,8 @@ int main(int argc, char *argv[]){
   unsigned int ans = 0;
   for(int i=0; i<num_threads; i++)
     ans ^= res[i];
-  printf("XOR of the File: %u\n",ans);
+  printf("XOR of the File Decimal: %u\n",ans);
+  printf("XOR of the File Hex: %08x\n",ans);
   
   return 0;
 }
