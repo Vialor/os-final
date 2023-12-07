@@ -7,9 +7,9 @@
 #include <stdlib.h>
 #include "rdwr.h"
 
-const int Rea_Size = 167772160;
-int block_size = 1024, block_count;
-char File_name[] = "test_file.txt";
+const int block_count = 8388608;
+int block_size = 4098;
+char File_name[] = "./test/32G.txt";
 double start_time, finish_time;
 
 double now() {
@@ -21,12 +21,12 @@ double now() {
 int main(){
 
   start_time = now();
-  block_read(File_name, block_size, Rea_Size/block_size);
+  block_read(File_name, block_size, block_count);
   finish_time = now();
   printf("First Read Runtime: %.6lf\n", finish_time-start_time);
   
   start_time = now();
-  block_read(File_name, block_size, Rea_Size/block_size);
+  block_read(File_name, block_size, block_count);
   finish_time = now();
   printf("Again Read Runtime: %.6lf\n", finish_time-start_time);
 

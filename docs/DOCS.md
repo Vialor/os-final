@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 1 Basics
 
 We create **rdwr.c** including functions **block_read** and **block_write**. Both of them have 3 parameters: **file_name**,  **block_size**, **block_count**. In **block_read**, we read buf sized **block_size** **block_count** times from the file named **file_name**. And so on in **block_write**.
@@ -32,7 +33,7 @@ Finally, we print **block_size*block_count=1**  as the **file_size**
 
 # 4 Caching
 
-We read the file two time. Record their runtime and compare them.
+We read the file twice. Record their runtime and compare them.
 
 Then we clear the cache and run again.
 
@@ -40,7 +41,7 @@ Then we clear the cache and run again.
 
 Extra Credit: Explain `sudo sh -c "/usr/bin/echo 3 > /proc/sys/vm/drop_caches"`
 
-I copy this from the documentation of Linux:
+The following comes from the documentation of Linux:
 
 >To free pagecache:
 >
@@ -59,12 +60,15 @@ Using 3 remove both the slab objects and pagecache. Slab is a memory management 
 
 
 # 5 System Calls
+- Measure performance MiB/s when using block size of 1 byte
 
-We read the file and record the runtime.
+3.680185 MiB/s
 
-Then we calculate and output the speed **MiB/s** and **B/s**
+- Measure performance in B/s. This is how many system calls you can do per second.
 
-We also test the speed of system call **lseek**
+3858954 B/s, or 3858954 systemcalls per second
+
+- Try with other system calls that arguably do even less real work (e.g. lseek)
 
 
 
@@ -81,4 +85,3 @@ For the thread numbered **i**, we open a **fd** and read the blocks
 Use **lseek()** to jump to the right place. After reading, we **XOR** them byte by byte.
 
 Finally, we output the total runtime (This runtime includes the time to calculate **XOR**) and the result of **XOR**
-
