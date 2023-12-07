@@ -47,11 +47,13 @@ int main(int argc, char *argv[]){
     block_read(file_name, block_size, block_count);
     finish_time = time(NULL);
     runtime = finish_time-start_time;
-    if(runtime>5)
+    if(runtime > 5)
       break;
     block_count <<= 1;
   }
 
-  printf("File_size: %d\n", block_count*block_size);
+  int file_size = block_count * block_size;
+  printf("File Size: %d Bytes, %d MB\n", file_size, file_size >> 20);
+  printf("Process Speed: %d B/s, %d MiB/s\n", file_size/runtime, (file_size/runtime) >> 20);
   return 0;
 }
