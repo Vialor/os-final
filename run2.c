@@ -8,7 +8,8 @@
 
 
 char file_name[256];
-int block_size, block_count;
+int block_size;
+long long block_count;
 int flag, fd;
 
 int stringtoint(char *s){
@@ -47,13 +48,14 @@ int main(int argc, char *argv[]){
     block_read(file_name, block_size, block_count);
     finish_time = time(NULL);
     runtime = finish_time-start_time;
-    if(runtime > 5)
+    if(runtime >= 5)
       break;
     block_count <<= 1;
   }
 
-  int file_size = block_count * block_size;
-  printf("File Size: %d Bytes, %d MB\n", file_size, file_size >> 20);
-  printf("Process Speed: %d B/s, %d MiB/s\n", file_size/runtime, (file_size/runtime) >> 20);
+  long long file_size = block_count * (long long)block_size;
+  printf("block_count: %lld, block_size: %d B\n", block_count, block_size);
+  printf("File Size: %lld Bytes, %lld MB\n", file_size, file_size >> 20);
+  printf("Process Speed: %lld B/s, %lld MiB/s\n", file_size/runtime, (file_size/runtime) >> 20);
   return 0;
 }
