@@ -6,6 +6,9 @@ run: run.o rdwr.o
 run2: run2.o rdwr.o
 	$(CXX) -o run2 run2.o rdwr.o
 
+caching: caching.o rdwr.o
+	$(CXX) -o caching caching.o rdwr.o
+
 fast: fast.o
 	$(CXX) -o fast fast.o
 

@@ -1,11 +1,16 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-#include <time.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include "rdwr.h"
+#include <sys/time.h>
 
+double now() {
+  struct timeval tv;
+  gettimeofday(&tv, 0);
+  return tv.tv_sec + tv.tv_usec / 1000000.0;
+}
 
 char file_name[256];
 int block_size;
@@ -41,12 +46,12 @@ int main(int argc, char *argv[]){
 
   block_count = 1;
 
-  int start_time, finish_time, runtime;
+  double start_time, finish_time, runtime;
 
   while(1){
-    start_time = time(NULL);
+    start_time = now();
     block_read(file_name, block_size, block_count);
-    finish_time = time(NULL);
+    finish_time = now();
     runtime = finish_time-start_time;
     if(runtime >= 5)
       break;
@@ -56,6 +61,7 @@ int main(int argc, char *argv[]){
   long long file_size = block_count * (long long)block_size;
   printf("block_count: %lld, block_size: %d B\n", block_count, block_size);
   printf("File Size: %lld Bytes, %lld MB\n", file_size, file_size >> 20);
-  printf("Process Speed: %lld B/s, %lld MiB/s\n", file_size/runtime, (file_size/runtime) >> 20);
+  printf("run time: %lf\n", runtime);
+  printf("Process Speed: %lf B/s, %lf MiB/s\n", file_size/runtime, (file_size/runtime)/(double)(1<<20));
   return 0;
 }

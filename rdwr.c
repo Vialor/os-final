@@ -6,9 +6,8 @@
 void block_read(char* file_name, int block_size, int block_count)
 {
   int fd = open(file_name, O_RDONLY);
-  if(fd<=0){
-    char err[] = "Error: File Open Failed\n";
-    write(2, err, sizeof(err));
+  if(fd <= 0){
+    printf("Error: File Open Failed\n");
     return;
   }
   char buf[block_size];
