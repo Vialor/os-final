@@ -4,21 +4,15 @@
 #include <time.h>
 #include <fcntl.h>
 #include <stdlib.h>
-#include <sys/time.h>
 #include "rdwr.h"
+#include "tools.h"
 
 const int Rea_Size = 167772160 >> 3;
 const int MiB = 1<<20;
 int block_size = 1, block_count;
-char File_name[] = "test_file.txt";
+char File_name[] = "test/3G.txt";
 int file_size = 1<<20;
 double start_time, finish_time;
-
-double now() {
-  struct timeval tv;
-  gettimeofday(&tv, 0);
-  return tv.tv_sec + tv.tv_usec / 1000000.0;
-}
 
 int main(){
 
@@ -30,7 +24,7 @@ int main(){
   printf("MiB/s when block_size=1 : %.6lf\n", MiBps );
 
   double Bps = (double)Rea_Size / (finish_time-start_time);
-  print("Number of read in 1 second: %.6lf\n", Bps);
+  printf("Number of read in 1 second: %.6lf\n", Bps);
 
   
   //Test of lseek
@@ -42,7 +36,7 @@ int main(){
     lseek(fd, rand()%file_size, SEEK_SET);
   finish_time = now();
   Bps = (double)Rea_Size / (finish_time-start_time);
-  print("Number of lseek in 1 second: %.6lf\n", Bps);
+  printf("Number of lseek in 1 second: %.6lf\n", Bps);
   close(fd);
   return 0;
 }

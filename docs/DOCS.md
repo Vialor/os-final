@@ -70,7 +70,11 @@ Using 3 remove both the slab objects and pagecache. Slab is a memory management 
 
 - Try with other system calls that arguably do even less real work (e.g. lseek)
 
+We have compared system calls read and lseek(system_call.c), here's the printing result:
 
+Number of read per second: 3844769.056968
+
+Number of lseek per second: 10240425.108437
 
 # 6 Raw Performance
 
