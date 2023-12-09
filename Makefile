@@ -1,25 +1,27 @@
-CXX = gcc
+CXX := gcc
+PROG := run run2 caching fast
 
-run: run.o rdwr.o
-	$(CXX) -o run run.o rdwr.o
+all: $(PROG)
+	make run
+	make run2
+	make caching
+	make fast
 
-run2: run2.o rdwr.o
-	$(CXX) -o run2 run2.o rdwr.o
+run: run.o rdwr.o tools.o
+	$(CXX) -o run run.o rdwr.o tools.o
 
-caching: caching.o rdwr.o
-	$(CXX) -o caching caching.o rdwr.o
+run2: run2.o rdwr.o tools.o
+	$(CXX) -o run2 run2.o rdwr.o tools.o
+
+caching: caching.o rdwr.o tools.o
+	$(CXX) -o caching caching.o rdwr.o tools.o
 
 fast: fast.o
 	$(CXX) -o fast fast.o
 
-run.o: run.c
-	$(CXX) -c run.c
+%.o: %.c
+	$(CXX) -c $< $@
 
-run2.o: run2.c
-	$(CXX) -c run2.c
-
-fast.o: fast.c
-	$(CXX) -c fast.c
-
-rdwr.o: rdwr.c
-	$(CXX) -c rdwr.c
+.PHONY: clean
+clean:
+	rm -f *.o $(PROG)

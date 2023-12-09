@@ -4,29 +4,12 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include "rdwr.h"
-#include <sys/time.h>
-
-double now() {
-  struct timeval tv;
-  gettimeofday(&tv, 0);
-  return tv.tv_sec + tv.tv_usec / 1000000.0;
-}
+#include "tools.h"
 
 char file_name[256];
 int block_size;
 long long block_count;
 int flag, fd;
-
-int stringtoint(char *s){
-  int len = strlen(s);
-  int res = 0;
-  for(int i=0; i<len; i++){
-    if(s[i]<48 || s[i]>57)
-      return -1;
-    res = res*10 + s[i]-48;
-  }
-  return res;
-}
 
 int main(int argc, char *argv[]){
   if(argc < 3){

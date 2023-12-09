@@ -1,24 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-#include <time.h>
 #include <fcntl.h>
 #include "rdwr.h"
+#include "tools.h"
 
 char file_name[256];
 int block_size, block_count;
 int flag;
-
-int stringtoint(char *s){
-  int len = strlen(s);
-  int res = 0;
-  for(int i=0; i<len; i++){
-    if(s[i]<48 || s[i]>57)
-      return -1;
-    res = res*10 + s[i]-48;
-  }
-  return res;
-}
 
 int main(int argc, char *argv[]){
   if(argc < 5){
@@ -52,7 +41,7 @@ int main(int argc, char *argv[]){
     return 0;
   }
 
-  double start_time = time(NULL)/3600;
+  double start_time = now();
 
   if(flag == 0){
     block_read(file_name, block_size, block_count);
@@ -60,7 +49,7 @@ int main(int argc, char *argv[]){
     block_write(file_name, block_size, block_count);
   }
 
-  double finish_time = time(NULL)/3600;
+  double finish_time = now();
 
   printf("Runtime: %lf\n", finish_time-start_time);
   return 0;

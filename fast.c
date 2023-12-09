@@ -11,7 +11,7 @@
 #define num_threads 16
 
 const int MiB = 1<<20;
-int block_size = 4096, block_count;
+int block_size = 4096;
 char file_name[256];
 double start_time, finish_time;
 unsigned int res[num_threads];
@@ -110,6 +110,7 @@ int main(int argc, char *argv[]){
 
   finish_time = now();
 
+  printf("Runtime: %lf\n", finish_time-start_time);
   printf("Runtime per MiB: %lf\n", (double)filesize / (double) MiB / (finish_time-start_time));
 
   unsigned int ans = 0;
