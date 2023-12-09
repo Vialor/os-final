@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 1 Basics
 
 We create **rdwr.c** including functions **block_read** and **block_write**. Both of them have 3 parameters: **file_name**,  **block_size**, **block_count**. In **block_read**, we read buf sized **block_size** **block_count** times from the file named **file_name**. And so on in **block_write**.
@@ -21,6 +20,7 @@ We record the runtime and quit the loop when **runtime>5** (second)
 
 Finally, we print **block_size*block_count=1**  as the **file_size**
 
+Extra credit: learn about the “dd” program in Linux and see how your program's performance compares to it!
 
 
 # 3 Raw Performance
