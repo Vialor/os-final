@@ -52,30 +52,28 @@ void* apply_read(void *arg){
     pthread_exit(NULL);
   }
   int step = (num_threads-1)*block_size;
-
   char buf[block_size];
-  size = read(fd, buf, block_size);
-  res[num] = XOR((unsigned int *)buf, size/4);
-  filesize += size;
-  if(size < block_size){
-    close(fd);
-    pthread_exit(NULL);
-  }
 
   while(1){
-    if(lseek(fd, step, SEEK_CUR) == -1){
-      close(fd);
-      pthread_exit(NULL);
-    }
     size = read(fd, buf, block_size);
+    if(size/4 != (size+3)/4){
+      printf("Need to add zero, size = %d\n",size);
+      int dif = 4-size%4;
+      for(int i=0; i<dif; i++)
+        buf[size+i] = '\0';
+      size += dif;
+    }
     res[num] ^= XOR((unsigned int *)buf, size/4);
-    
+    //res[num] = XOR((unsigned int *)buf, (size+3)/4);
     //printf("num: %d, res: %u\n", num, res[num]);
 
     filesize += size;
-
     //printf("current filesize: %lld\n", filesize);
     if(size < block_size){
+      close(fd);
+      pthread_exit(NULL);
+    }
+    if(lseek(fd, step, SEEK_CUR) == -1){
       close(fd);
       pthread_exit(NULL);
     }
