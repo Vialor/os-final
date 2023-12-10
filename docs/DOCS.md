@@ -19,7 +19,17 @@ block_read(file_name, block_size, block_count);
 
 We record the runtime and quit the loop when **runtime>5** (second)
 
-Finally, we print **block_size*block_count=1**  as the **file_size**
+Finally, we print **block_size*block_count**  as the **file_size**
+
+
+
+**Extra Credit: **learn about the “dd” program in Linux and see how your program's performance compares to it!
+
+We use "dd" to copy 2GB data (**block_size 4096**) from the iso file and compare its runtime with "run". We find that their runtimes are almost the same. "dd" takes 50 seconds and "run" takes 49 seconds totally.
+
+![dd](E:\Programing Environment\os-final\pictures\dd.png)
+
+![run](E:\Programing Environment\os-final\pictures\run.png)
 
 
 
@@ -27,19 +37,21 @@ Finally, we print **block_size*block_count=1**  as the **file_size**
 
 
 
+After reaching **block_size=**, the runtime won't decrease when **block_size** increases.
+
 
 
 
 
 # 4 Caching
 
-We read the file twice. Record their runtime and compare them.
+We clear the cache.
 
-Then we clear the cache and run again.
+Then read the file twice. Record their runtime and compare them.
 
 
 
-Extra Credit: Explain `sudo sh -c "/usr/bin/echo 3 > /proc/sys/vm/drop_caches"`
+**Extra Credit: **Explain `sudo sh -c "/usr/bin/echo 3 > /proc/sys/vm/drop_caches"`
 
 The following comes from the documentation of Linux:
 
@@ -74,14 +86,29 @@ Using 3 remove both the slab objects and pagecache. Slab is a memory management 
 
 # 6 Raw Performance
 
-In this part we use multiple threads. We choose 16 as the number of threads.
+In this part we use multiple threads. 
 
-We use the block_size 4096.
+We use the block_size **4096**. (Basely)
 
-For the thread numbered **i**, we open a **fd** and read the blocks
+For the thread numbered **i**, we open a **fd** and read the blocks numbered
 
 **i, i+num\_threads, ... , i+k*num\_threads**
 
-Use **lseek()** to jump to the right place. After reading, we **XOR** them byte by byte.
+Use **lseek()** to jump to the right place. After reading, we combine 4 characters into an unsigned int and **XOR** them.
 
-Finally, we output the total runtime (This runtime includes the time to calculate **XOR**) and the result of **XOR**
+Finally, we output the total runtime (This runtime includes the time to calculate **XOR**), the runtime per MB and the result of **XOR**
+
+For those files whose size is not a multiple of 4, we add '\0' to its tail when **XOR** and make sure each byte is included.
+
+Multiple threads works well. One thread takes approximately 4 times runtime compared to 16 threads.
+
+
+
+**Extra Try:**
+
+We try to use **mmap** instead of **read** to input the data but we find that it slows down. It almost takes double time. We guess that under a small **block_size **, **mmap** takes more time when mapping such a small bunch. The code is in **fast_mmap.c**
+
+
+
+We also try to increase the **block_size** and find that it makes **fast.c** faster. **block_size 4096** takes approximately 8 times runtime compared to **block_size 65536** ($2^{16}$). After that, the increase of **block_size** hardly cause the development of efficiency.
+

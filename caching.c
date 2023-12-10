@@ -7,7 +7,8 @@
 #include "tools.h"
 
 const int block_count = 8388608;
-int block_size = 4098;
+//const int block_count = 524288;
+int block_size = 4096;
 char File_name[] = "./test/32G.txt";
 double start_time, finish_time;
 

@@ -19,6 +19,9 @@ caching: caching.o rdwr.o tools.o
 fast: fast.o
 	$(CXX) -o fast fast.o
 
+fast_mmap: fast_mmap.o
+	$(CXX) -o fast_mmap fast_mmap.o tools.o
+
 %.o: %.c
 	$(CXX) -c $< $@
 
