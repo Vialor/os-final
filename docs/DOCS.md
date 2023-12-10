@@ -30,7 +30,13 @@ We use "dd" to copy 2GB data (**block_size 4096**) from the iso file and compare
 
 ![run](E:\Programing Environment\os-final\pictures\run.png)
 
-Extra credit: learn about the “dd” program in Linux and see how your program's performance compares to it!
+Extra credit: learn about Google Benchmark — see if you can use it.
+
+We've tried Google Benchmark on this part. Benchmark is a light weight library, and it is a bit awkward to use it to calculate a proper file_size. (much simpler just in C code)
+
+However, it is a nice tool to monitor performance. We've included an example below, where we compare `dd` and our implementation of block_read + block_write. `dd` is still slightly faster with different block size. (the format BM_dd/2048 means that dd is tested using block size of 2048 Bytes)
+
+![Alt text](benchmark0.png)
 
 
 # 3 Raw Performance
