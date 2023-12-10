@@ -1,0 +1,3 @@
+/home/vial/Desktop/os_final/library/benchmark/build/third_party/googletest/CMakeFiles/googletest.dir
+/home/vial/Desktop/os_final/library/benchmark/build/third_party/googletest/CMakeFiles/edit_cache.dir
+/home/vial/Desktop/os_final/library/benchmark/build/third_party/googletest/CMakeFiles/rebuild_cache.dir

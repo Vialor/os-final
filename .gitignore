@@ -1,10 +1,5 @@
 .vscode
-test
-build
+/test
+/build
 
-*.o
-run
-run2
-fast
-caching
-system_call
+runbenchmark

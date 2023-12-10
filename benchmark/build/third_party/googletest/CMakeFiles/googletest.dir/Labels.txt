@@ -1,0 +1,14 @@
+# Target labels
+ googletest
+# Source files and their labels
+/home/vial/Desktop/os_final/library/benchmark/build/third_party/googletest/CMakeFiles/googletest
+/home/vial/Desktop/os_final/library/benchmark/build/third_party/googletest/CMakeFiles/googletest.rule
+/home/vial/Desktop/os_final/library/benchmark/build/third_party/googletest/CMakeFiles/googletest-complete.rule
+/home/vial/Desktop/os_final/library/benchmark/build/third_party/googletest/stamp/googletest-build.rule
+/home/vial/Desktop/os_final/library/benchmark/build/third_party/googletest/stamp/googletest-configure.rule
+/home/vial/Desktop/os_final/library/benchmark/build/third_party/googletest/stamp/googletest-download.rule
+/home/vial/Desktop/os_final/library/benchmark/build/third_party/googletest/stamp/googletest-install.rule
+/home/vial/Desktop/os_final/library/benchmark/build/third_party/googletest/stamp/googletest-mkdir.rule
+/home/vial/Desktop/os_final/library/benchmark/build/third_party/googletest/stamp/googletest-patch.rule
+/home/vial/Desktop/os_final/library/benchmark/build/third_party/googletest/stamp/googletest-test.rule
+/home/vial/Desktop/os_final/library/benchmark/build/third_party/googletest/stamp/googletest-update.rule

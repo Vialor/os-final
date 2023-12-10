@@ -1,16 +1,11 @@
-To compile all the codes. 
+# Build
+`mkdir build && cd build && cmake ..`
 
-```
-make
-```
+Inside build folder:
 
-To compile the code separately
+`make`: compile all programs
 
-```
-make name_of_code
-```
-
-e.g.
+`make <programname>`: compile specific programs, including:
 
 ```
 make run
@@ -21,14 +16,19 @@ make fast
 make fast_mmap
 ```
 
+`make && cd .. && g++ runbenchmark.cpp rdwr.c -std=c++11 -isystem benchmark/include -Lbenchmark/build/src -lbenchmark -lpthread -o runbenchmark`: compile runbenchmark
 
+# Programs
+`./run <filename> [-r|-w] <block_size> <block_count>`
 
+`./run2 <filename> <block_size>`
 
+`./caching`
 
-./run <filename> [-r|-w] <block_size> <block_count>
+`./system_call`
 
-./run2 <filename> <block_size>
+`./fast <filename>`
 
-./caching
+`./fast_mmap`
 
-./fast <filename>
+`./runbenchmark`
