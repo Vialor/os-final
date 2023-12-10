@@ -51,6 +51,7 @@ int main(int argc, char *argv[]){
 
   double finish_time = now();
 
-  printf("Runtime: %lf\n", finish_time-start_time);
+  printf("Runtime: %lf s\n", finish_time-start_time);
+  printf("Runtime: %lf MiBps\n", block_count/1024/1024*block_size/(finish_time-start_time));
   return 0;
 }

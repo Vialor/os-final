@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 1 Basics
 
 We create **rdwr.c** including functions **block_read** and **block_write**. Both of them have 3 parameters: **file_name**,  **block_size**, **block_count**. In **block_read**, we read buf sized **block_size** **block_count** times from the file named **file_name**. And so on in **block_write**.
@@ -31,6 +30,7 @@ We use "dd" to copy 2GB data (**block_size 4096**) from the iso file and compare
 
 ![run](E:\Programing Environment\os-final\pictures\run.png)
 
+Extra credit: learn about the “dd” program in Linux and see how your program's performance compares to it!
 
 
 # 3 Raw Performance
@@ -82,7 +82,11 @@ Using 3 remove both the slab objects and pagecache. Slab is a memory management 
 
 - Try with other system calls that arguably do even less real work (e.g. lseek)
 
+We have compared system calls read and lseek(system_call.c), here's the printing result:
 
+Number of read per second: 3844769.056968
+
+Number of lseek per second: 10240425.108437
 
 # 6 Raw Performance
 
