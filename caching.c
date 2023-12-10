@@ -6,9 +6,10 @@
 #include "rdwr.h"
 #include "tools.h"
 
-const int block_count = 8388608;
-int block_size = 4098;
-char File_name[] = "./test/32G.txt";
+const int block_size = 131072;
+const int block_count = (1<<30) / block_size * 4;
+int file_size = block_count / 1024 * block_size / 1024; // MB
+char file_name[] = "./test/4G.txt";
 double start_time, finish_time;
 
 int main(){
