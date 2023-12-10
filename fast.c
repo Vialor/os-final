@@ -11,7 +11,7 @@
 #define num_threads 16
 
 const int MiB = 1<<20;
-int block_size = 4096<<6;
+int block_size = 65536;
 char file_name[256];
 double start_time, finish_time;
 unsigned int res[num_threads];
@@ -46,7 +46,8 @@ void* apply_read(void *arg){
   }
 
   int size;
-  
+
+  //Use lseek to jump to numth block
   if(lseek(fd, num*block_size, SEEK_SET) == -1){
     close(fd);
     pthread_exit(NULL);
@@ -56,6 +57,7 @@ void* apply_read(void *arg){
 
   while(1){
     size = read(fd, buf, block_size);
+    //If size isn't a multiple of 4, fill the dif
     if(size/4 != (size+3)/4){
       printf("Need to add zero, size = %d\n",size);
       int dif = 4-size%4;
@@ -63,16 +65,18 @@ void* apply_read(void *arg){
         buf[size+i] = '\0';
       size += dif;
     }
+    //Transfer buf to unsigned int*
     res[num] ^= XOR((unsigned int *)buf, size/4);
     //res[num] = XOR((unsigned int *)buf, (size+3)/4);
     //printf("num: %d, res: %u\n", num, res[num]);
 
     filesize += size;
-    //printf("current filesize: %lld\n", filesize);
+    
     if(size < block_size){
       close(fd);
       pthread_exit(NULL);
     }
+    //skip the blocks belong to other threads
     if(lseek(fd, step, SEEK_CUR) == -1){
       close(fd);
       pthread_exit(NULL);
@@ -110,8 +114,9 @@ int main(int argc, char *argv[]){
 
   finish_time = now();
 
+  printf("Block_size = %d\n",block_size);
   printf("Number of threads: %d\n",num_threads);
-  printf("Runtime: %lf\n", finish_time-start_time);
+  printf("Runtime totally: %lf\n", finish_time-start_time);
   printf("Runtime per MiB: %lf\n", (double)filesize / (double) MiB / (finish_time-start_time));
 
   unsigned int ans = 0;
