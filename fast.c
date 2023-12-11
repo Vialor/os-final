@@ -117,7 +117,7 @@ int main(int argc, char *argv[]){
   printf("Block_size = %d\n",block_size);
   printf("Number of threads: %d\n",num_threads);
   printf("Runtime totally: %lf\n", finish_time-start_time);
-  printf("Runtime per MiB: %lf\n", (double)filesize / (double) MiB / (finish_time-start_time));
+  printf("MiB per second: %lf\n", (double)filesize / (double) MiB / (finish_time-start_time));
 
   unsigned int ans = 0;
   for(int i=0; i<num_threads; i++)
