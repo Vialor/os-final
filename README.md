@@ -32,3 +32,9 @@ make fast_mmap
 `./fast_mmap`
 
 `./runbenchmark`
+
+# Docs
+
+partner.txt contains the authors
+
+docs folder contains data spreadsheet and our answers in texts.
