@@ -11,7 +11,7 @@
 #define num_threads 16
 
 const int MiB = 1<<20;
-int block_size = 65536;
+int block_size = 1<<13;
 char file_name[256];
 double start_time, finish_time;
 unsigned int res[num_threads];
